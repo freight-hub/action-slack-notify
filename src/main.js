@@ -29,11 +29,7 @@ async function execute() {
 function getAndValidateInput() {
     const slackWebhookUrl = core.getInput('slack_webhook_url', {required: true})
     const message = core.getInput('message', {required: true})
-    let isMarkdown = core.getInput('is_markdown', {required: false})
-
-    if (!isMarkdown) {
-        isMarkdown = false;
-    }
+    let isMarkdown = core.getInput('is_markdown', {required: false}) === 'true'
 
     return {
         slackWebhookUrl,

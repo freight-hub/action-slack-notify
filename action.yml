@@ -1,25 +1,15 @@
-name: 'Bump version from tag'
-description: 'Bumps a semver version from tag or fallback version'
+name: 'Send a message on slack'
+description: 'Creates a message in the channel by a webhook'
 inputs:
-    token:
-        description: 'Github token used by octokit (github API)'
+    slack_webhook_url:
+        description: 'Webhook URL (with channel and token)'
         required: true
-    build_number:
-        description: 'Optional: used to generate the pre_release_version as {version}-alpha.{build_number}. (Default: 0)'
+    message:
+        description: 'the message that will be posted'
+        required: true
+    is_markdown:
+        description: 'Optional: is the message in markdown format (default: false)'
         required: false
-    fallback_tag:
-        description: 'Optional: used as fallback when no tag/release can be found on the repository.'
-        required: false
-    disable_inform:
-        description: 'Disables the comment created by the script. (Default: false)'
-        required: false
-outputs:
-    old_version:
-        description: 'The latest tag found'
-    new_version:
-        description: 'The next calculated version'
-    pre_release_version:
-        description: 'Pre release version built from {new_version}-alpha.{build_number}'
 runs:
     using: 'node16'
     main: 'dist/index.js'
