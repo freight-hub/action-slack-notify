@@ -24,7 +24,7 @@ Send a message on slack
 ```yaml
 name: Notify slack
 id: slack
-uses: freight-hub/action-slack-notify@v1.0
+uses: freight-hub/action-slack-notify@v1.1
 with:
   slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
   message: 'hello channel!'
