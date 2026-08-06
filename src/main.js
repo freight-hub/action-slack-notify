@@ -1,5 +1,4 @@
 import * as core from '@actions/core';
-const axios = require('axios')
 
 async function run() {
     try {
@@ -11,17 +10,20 @@ async function run() {
 
 async function execute() {
     const { slackWebhookUrl, message, isMarkdown } = getAndValidateInput()
-    let result
-    try {
-        result = await axios.post(slackWebhookUrl, {
-            text: message,
-            mrkdwn: isMarkdown,
-        })
-    } catch (e) {
-        throw new Error(`Could not post message: ${e.message}`)
-    }
-    if (result.status !== 200) {
-        throw new Error(`Message status was not 200. got ${result.status}`)
+    const resp = await fetch(slackWebhookUrl, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            'text': message,
+            'mrkdwn': isMarkdown,
+        }),
+    })
+    console.log('Response body:')
+    console.log(await resp.text())
+    if (resp.status !== 200) {
+        throw new Error(`Message status was not 200. got ${resp.status}`)
     }
 }
 
@@ -37,6 +39,4 @@ function getAndValidateInput() {
     }
 }
 
-;(async () => {
-    await run()
-})()
+run()
