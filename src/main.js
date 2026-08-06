@@ -1,4 +1,4 @@
-import * as core from '@actions/core';
+import * as core from '@actions/core'
 
 async function run() {
     try {
@@ -16,8 +16,8 @@ async function execute() {
             'content-type': 'application/json',
         },
         body: JSON.stringify({
-            'text': message,
-            'mrkdwn': isMarkdown,
+            text: message,
+            mrkdwn: isMarkdown,
         }),
     })
     console.log('Response body:')
