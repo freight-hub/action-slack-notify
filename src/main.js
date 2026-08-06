@@ -10,12 +10,12 @@ async function run() {
 }
 
 async function execute() {
-    const {slackWebhookUrl, message, isMarkdown} = getAndValidateInput()
-    let result;
+    const { slackWebhookUrl, message, isMarkdown } = getAndValidateInput()
+    let result
     try {
         result = await axios.post(slackWebhookUrl, {
             text: message,
-            mrkdwn: isMarkdown
+            mrkdwn: isMarkdown,
         })
     } catch (e) {
         throw new Error(`Could not post message: ${e.message}`)
@@ -25,16 +25,15 @@ async function execute() {
     }
 }
 
-
 function getAndValidateInput() {
-    const slackWebhookUrl = core.getInput('slack_webhook_url', {required: true})
-    const message = core.getInput('message', {required: true})
-    let isMarkdown = core.getInput('is_markdown', {required: false}) === 'true'
+    const slackWebhookUrl = core.getInput('slack_webhook_url', { required: true })
+    const message = core.getInput('message', { required: true })
+    let isMarkdown = core.getInput('is_markdown', { required: false }) === 'true'
 
     return {
         slackWebhookUrl,
         message,
-        isMarkdown
+        isMarkdown,
     }
 }
 
